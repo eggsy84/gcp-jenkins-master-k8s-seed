@@ -19,7 +19,7 @@
       <name>gcp-kubernetes-dev</name>
       <templates>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
-          <name>jenkins-slave</name>
+          <name>build-slave</name>
           <image>eggsy84/gcp-jenkins-slave-k8s-seed:latest</image>
           <privileged>true</privileged>
           <alwaysPullImage>true</alwaysPullImage>
@@ -27,7 +27,7 @@
           <args></args>
           <remoteFs>/home/jenkins</remoteFs>
           <instanceCap>2147483647</instanceCap>
-          <label>jenkins-slave</label>
+          <label>build-slave</label>
           <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.PodVolumes_-HostPathVolume>
