@@ -1,5 +1,5 @@
 FROM jenkins:1.651.2-alpine
-MAINTAINER James Heggs eggsy@eggsylife.co.uk
+MAINTAINER James Heggs jimbobegg@hotmail.com
 
 # The GCP project is configured on the Jenkins job
 ENV GCP_PROJECT "GCP-CD"
