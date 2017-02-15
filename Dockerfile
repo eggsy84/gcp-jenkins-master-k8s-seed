@@ -18,3 +18,14 @@ COPY resources/config.xml /usr/share/jenkins/ref/
 # Google Cloud registry config
 COPY resources/plugin_configs/com.google.jenkins.plugins.googlecontainerregistryauth.GoogleContainerRegistryCredentialGlobalConfig.xml\
      /usr/share/jenkins/ref/
+
+USER root
+
+# Used for template substitution
+# https://github.com/kreuzwerker/envplate
+RUN apk --no-cache add curl
+RUN curl -sLo /usr/local/bin/ep https://github.com/kreuzwerker/envplate/releases/download/v0.0.8/ep-linux && chmod +x /usr/local/bin/ep
+
+
+
+CMD [ "/usr/local/bin/ep", "-v", "/var/jenkins_home/jobs/spring-boot-pipeline/config.xml", "--", "/bin/tini", "-s", "--", "/usr/local/bin/jenkins.sh"]

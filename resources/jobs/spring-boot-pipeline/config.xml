@@ -27,7 +27,7 @@
         <hudson.model.StringParameterDefinition>
           <name>GCP_PROJECT_NAME</name>
           <description>Google Cloud Platform project</description>
-          <defaultValue>GCP_PROJECT_DEFAULT_VALUE</defaultValue>
+          <defaultValue>${GCP_PROJECT}</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
