@@ -1,3 +1,5 @@
 blueocean:1.0.0-b23
+dynamicparameter:0.2.0
+google-container-registry-auth:0.3
 kubernetes:0.10
 workflow-aggregator:2.5
