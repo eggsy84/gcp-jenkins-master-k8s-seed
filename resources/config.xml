@@ -15,35 +15,10 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds>
-    <org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud plugin="kubernetes@0.6">
-      <name>gcp-kubernetes-dev</name>
-      <templates>
-        <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
-          <name>build-slave</name>
-          <image>eggsy84/gcp-jenkins-slave-k8s-seed:latest</image>
-          <privileged>true</privileged>
-          <alwaysPullImage>true</alwaysPullImage>
-          <command></command>
-          <args></args>
-          <remoteFs>/home/jenkins</remoteFs>
-          <instanceCap>2147483647</instanceCap>
-          <label>build-slave</label>
-          <nodeSelector></nodeSelector>
-          <volumes>
-            <org.csanchez.jenkins.plugins.kubernetes.PodVolumes_-HostPathVolume>
-              <mountPath>/var/run/docker.sock</mountPath>
-              <hostPath>/var/run/docker.sock</hostPath>
-            </org.csanchez.jenkins.plugins.kubernetes.PodVolumes_-HostPathVolume>
-            <org.csanchez.jenkins.plugins.kubernetes.PodVolumes_-SecretVolume>
-              <mountPath>/opt/config</mountPath>
-              <secretName>gcloud-svc-account</secretName>
-            </org.csanchez.jenkins.plugins.kubernetes.PodVolumes_-SecretVolume>
-          </volumes>
-          <envVars/>
-        </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
-      </templates>
+    <org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud plugin="kubernetes@0.10">
+      <name>kubernetes</name>
       <serverUrl>https://kubernetes.default.svc.cluster.local:443</serverUrl>
-      <skipTlsVerify>false</skipTlsVerify>
+      <skipTlsVerify>true</skipTlsVerify>
       <namespace>default</namespace>
       <jenkinsUrl>http://jenkins-ui:80</jenkinsUrl>
       <jenkinsTunnel>jenkins-discovery:50000</jenkinsTunnel>

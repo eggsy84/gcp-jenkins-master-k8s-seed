@@ -1,35 +1,20 @@
-FROM jenkins:1.651.2-alpine
-MAINTAINER James Heggs jimbobegg@hotmail.com
+FROM jenkins:2.32.2-alpine
+
+MAINTAINER James Heggs james.heggs@closconsultancy.com
 
 # The GCP project is configured on the Jenkins job
 ENV GCP_PROJECT "GCP-CD"
 
-USER jenkins
-
-# Install Jenkins Plugins
-COPY resources/plugin_configs/plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
-
-# Configure jenkins and scripts for creating jobs
-COPY resources/config.xml /var/jenkins_home/config.xml
-COPY resources/jobs/create-jenkins-jobs.sh /usr/local/bin/create-jenkins-jobs.sh
+# Install Jenkins Plugins
+COPY resources/plugin_configs/plugins.txt /usr/share/jenkins/ref/
+RUN /usr/local/bin/install-plugins.sh $(cat /usr/share/jenkins/ref/plugins.txt | tr '\n' ' ')
 
 # Create seed spring boot starter job
-COPY resources/jobs/spring-boot-pipeline/config.xml /var/jenkins_job_templates/spring-boot-pipeline/config.xml
+COPY resources/jobs /usr/share/jenkins/ref/jobs
+
+# Put config in place ready to go
+COPY resources/config.xml /usr/share/jenkins/ref/
 
 # Google Cloud registry config
 COPY resources/plugin_configs/com.google.jenkins.plugins.googlecontainerregistryauth.GoogleContainerRegistryCredentialGlobalConfig.xml\
-     /var/jenkins_home/com.google.jenkins.plugins.googlecontainerregistryauth.GoogleContainerRegistryCredentialGlobalConfig.xml
-
-USER root
-
-RUN apk add --update supervisor
-
-RUN chmod +x /usr/local/bin/create-jenkins-jobs.sh
-
-COPY resources/supervisord.conf /etc/supervisord.conf
-
-
-USER root
-
-CMD ["/usr/bin/supervisord"]
+     /usr/share/jenkins/ref/
